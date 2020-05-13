@@ -170,7 +170,7 @@ class VideoDetailsFragment : DetailsFragment() {
         Collections.shuffle(list)
         val listRowAdapter = ArrayObjectAdapter(CardPresenter())
         for (j in 0 until NUM_COLS) {
-            listRowAdapter.add(list[j % 5])
+            listRowAdapter.add(list?.get(j % 5))
         }
 
         val header = HeaderItem(0, subcategories[0])

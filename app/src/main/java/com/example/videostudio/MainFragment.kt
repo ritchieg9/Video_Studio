@@ -48,6 +48,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.example.videostudio.MainActivity
+import java.util.Collections.list
+
+//import com.example.videostudio.MovieList.MOVIE_CATEGORY
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -69,7 +73,7 @@ class MainFragment : BrowseFragment() {
 
         setupUIElements()
 
-        loadRows()
+//        loadRows()
 
         setupEventListeners()
     }
@@ -101,7 +105,7 @@ class MainFragment : BrowseFragment() {
         searchAffordanceColor = ContextCompat.getColor(context, R.color.search_opaque)
     }
 
-    private fun loadRows() {
+    public fun loadRows() {
         val list = MovieList.list
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
@@ -113,7 +117,7 @@ class MainFragment : BrowseFragment() {
             }
             val listRowAdapter = ArrayObjectAdapter(cardPresenter)
             for (j in 0 until NUM_COLS) {
-                listRowAdapter.add(list[j % 5])
+                listRowAdapter.add(list?.get(j % 5))
             }
             val header = HeaderItem(i.toLong(), MovieList.MOVIE_CATEGORY[i])
             rowsAdapter.add(ListRow(header, listRowAdapter))
