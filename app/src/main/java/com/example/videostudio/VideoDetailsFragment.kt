@@ -165,7 +165,7 @@ class VideoDetailsFragment : DetailsFragment() {
 
     private fun setupRelatedMovieListRow() {
         val subcategories = arrayOf(getString(R.string.related_movies))
-        val list = MovieList.list
+        val list = VideoProvider.setupMoviesHDD(activity)
 
         Collections.shuffle(list)
         val listRowAdapter = ArrayObjectAdapter(CardPresenter())

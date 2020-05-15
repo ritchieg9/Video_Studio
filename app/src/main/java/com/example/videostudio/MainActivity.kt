@@ -27,60 +27,9 @@ import androidx.core.app.ActivityCompat
  */
 class MainActivity : Activity() {
 
-    var list : List<Movie> ?= null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 505)
-//        }
-//        else {
-//           setupMovies()
-//        }
     }
 
-    fun setupMovies() {
-//
-//        list = MovieList.setupMovies()
-//
-//        val proj = arrayOf(
-//            MediaStore.Video.Media.DATA,
-//            MediaStore.Video.Media._ID, MediaStore.Video.Media.TITLE,
-//            MediaStore.Video.Media.DISPLAY_NAME,
-//            MediaStore.Video.Media.MIME_TYPE,
-//            MediaStore.Video.Media.DURATION,
-//            MediaStore.Video.Media.SIZE
-//        )
-//
-//        val orderBy = MediaStore.Video.Media.TITLE
-//        val rs = managedQuery(
-//            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-//            proj, null, null, orderBy
-//        )
-//
-//        var vidsCount = 0
-//        if (rs != null) {
-//            vidsCount = rs.getCount()
-//            while (rs.moveToNext()) {
-//                Log.d("VIDEO", rs.getString(0))
-//            }
-//            rs.close()
-//        }
-        Log.d("VIDEO", "CHVRCHES")
-
-    }
-
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if(requestCode === 505 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//            setupMoviesHDD()
-//        }
-//    }
 }

@@ -33,7 +33,6 @@ import com.bumptech.glide.request.target.SimpleTarget
 import java.util.*
 
 
-//import com.example.videostudio.MovieList.MOVIE_CATEGORY
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -66,7 +65,6 @@ class MainFragment : VerticalGridFragment() {
     }
 
     private fun setupFragment() {
-//        val list = MovieList.list
 
         val list: List<Movie>? = VideoProvider.buildMedia(activity)
         val gridPresenter = VerticalGridPresenter()
@@ -160,7 +158,6 @@ class MainFragment : VerticalGridFragment() {
     }
 
     private inner class UpdateBackgroundTask : TimerTask() {
-
         override fun run() {
             mHandler.post { updateBackground(mBackgroundUri) }
         }
@@ -168,6 +165,6 @@ class MainFragment : VerticalGridFragment() {
 
     companion object {
         private val TAG = "MainFragment"
-        private val BACKGROUND_UPDATE_DELAY = 300
+        private val BACKGROUND_UPDATE_DELAY = 200
     }
 }

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import com.example.videostudio.MovieList.buildMovieInfo
 
 
 object VideoProvider : Activity() {
@@ -17,19 +16,10 @@ object VideoProvider : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 505)
-        }
-        else {
-//            setupMovies()
-        }
     }
 
 
     fun buildMedia(activity: Activity): List<Movie>? {
-//        super.onCreate(savedInstanceState)
 
         if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 505)
@@ -37,10 +27,6 @@ object VideoProvider : Activity() {
         else {
             list = setupMoviesHDD(activity)
         }
-//        if (null != list) {
-//            return list
-//        }
-
         return list
     }
 
@@ -126,5 +112,23 @@ object VideoProvider : Activity() {
         if(requestCode === 505 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 //            setupMovies()
         }
+    }
+
+    fun buildMovieInfo(
+        title: String,
+        description: String,
+        studio: String,
+        videoUrl: String,
+        cardImageUrl: String,
+        backgroundImageUrl: String): Movie {
+        val movie = Movie()
+        movie.id = count++
+        movie.title = title
+        movie.description = description
+        movie.studio = studio
+        movie.cardImageUrl = cardImageUrl
+        movie.backgroundImageUrl = backgroundImageUrl
+        movie.videoUrl = videoUrl
+        return movie
     }
 }
