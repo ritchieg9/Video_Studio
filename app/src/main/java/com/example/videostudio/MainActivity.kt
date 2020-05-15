@@ -42,7 +42,7 @@ class MainActivity : Activity() {
         }
     }
 
-    public fun setupMovies() {
+    fun setupMovies() {
 
         list = MovieList.setupMovies()
 

@@ -89,7 +89,7 @@ class CardPresenter : Presenter() {
     companion object {
         private val TAG = "CardPresenter"
 
-        private val CARD_WIDTH = 313
-        private val CARD_HEIGHT = 176
+        private val CARD_WIDTH = 300
+        private val CARD_HEIGHT = 430
     }
 }
