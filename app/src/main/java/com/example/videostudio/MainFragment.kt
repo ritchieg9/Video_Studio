@@ -14,13 +14,18 @@
 
 package com.example.videostudio
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.BackgroundManager
@@ -39,7 +44,6 @@ import java.util.*
  */
 class MainFragment : VerticalGridFragment() {
 
-
     private val mHandler = Handler()
     private val TAG = VerticalGridFragment::class.java.simpleName
     private val NUM_COLUMNS = 5
@@ -51,22 +55,42 @@ class MainFragment : VerticalGridFragment() {
 
     private var mAdapter: ArrayObjectAdapter? = null
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate")
         super.onCreate(savedInstanceState)
 
         setTitle("Movies");
 
-        prepareBackgroundManager()
+        if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 505)
+        }
+        else{
+            prepareBackgroundManager()
+            setupFragment()
+            setupEventListeners()
+        }
 
-        setupFragment()
-
-        setupEventListeners()
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode === 505 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            prepareBackgroundManager()
+            setupFragment()
+            setupEventListeners()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun setupFragment() {
 
-        val list: List<Movie>? = VideoProvider.buildMedia(activity)
+        val list: List<Movie>? = VideoProvider.setupMovies(activity)
         val gridPresenter = VerticalGridPresenter()
 
         gridPresenter.setNumberOfColumns(NUM_COLUMNS)
