@@ -51,8 +51,9 @@ object VideoProvider : Activity() {
         if (rs != null) {
             vidsCount = rs.getCount()
 
-           val title: MutableList<String> = mutableListOf()
+            val title: MutableList<String> = mutableListOf()
             var videoUrl: MutableList<String> = mutableListOf()
+            var studio: MutableList<String> = mutableListOf()
             var bgImageUrl: MutableList<String> = mutableListOf()
             var cardImageUrl: MutableList<String> = mutableListOf()
             var count = 0
@@ -61,11 +62,9 @@ object VideoProvider : Activity() {
 //                Log.d("VIDEO", rs.getString(2))
                 title.add(rs.getString(2))
                 videoUrl.add(rs.getString(0))
+                studio.add(rs.getString(2))
                 bgImageUrl.add("https://is2-ssl.mzstatic.com/image/thumb/Video128/v4/50/d3/03/50d3030b-be99-78a9-2250-9c4b62ea12f9/pr_source.lsr/600x0w.png")
                 cardImageUrl.add("https://is2-ssl.mzstatic.com/image/thumb/Video128/v4/50/d3/03/50d3030b-be99-78a9-2250-9c4b62ea12f9/pr_source.lsr/600x0w.png")
-                if(count == 5){
-                    break
-                }
             }
             Log.d("VIDEO", "EWOK")
             Log.d("VIDEO", title.toString())
@@ -82,12 +81,13 @@ object VideoProvider : Activity() {
                     "amet mi accumsan mollis sed et magna. Vivamus sed aliquam risus. Nulla eget dolor in elit " +
                     "facilisis mattis. Ut aliquet luctus lacus. Phasellus nec commodo erat. Praesent tempus id " +
                     "lectus ac scelerisque. Maecenas pretium cursus lectus id volutpat."
-            val studio = arrayOf(
-                "Studio Zero",
-                "Studio One",
-                "Studio Two",
-                "Studio Three",
-                "Studio Four")
+//            val studio = arrayOf(
+//                "Studio Zero",
+//                "Studio One",
+//                "Studio Two",
+//                "Studio Three",
+//                "Studio Thre2e",
+//                "Studio Four")
 
             list = title.indices.map {
                 buildMovieInfo(
