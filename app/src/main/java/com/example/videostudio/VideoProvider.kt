@@ -2,10 +2,14 @@ package com.example.videostudio
 
 import android.Manifest
 import android.app.Activity
+import android.content.ContentUris
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 
 
@@ -19,6 +23,7 @@ object VideoProvider : Activity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun buildMedia(activity: Activity): List<Movie>? {
 
         if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -29,16 +34,18 @@ object VideoProvider : Activity() {
         }
         return list
     }
-
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun setupMoviesHDD(activity: Activity): List<Movie>? {
 
         val proj = arrayOf(
             MediaStore.Video.Media.DATA,
-            MediaStore.Video.Media._ID, MediaStore.Video.Media.TITLE,
+            MediaStore.Video.Media._ID,
+            MediaStore.Video.Media.TITLE,
             MediaStore.Video.Media.DISPLAY_NAME,
             MediaStore.Video.Media.MIME_TYPE,
             MediaStore.Video.Media.DURATION,
-            MediaStore.Video.Media.SIZE
+            MediaStore.Video.Media.SIZE,
+            MediaStore.Images.Thumbnails.DATA
         )
 
         val orderBy = MediaStore.Video.Media.TITLE
@@ -47,9 +54,7 @@ object VideoProvider : Activity() {
             proj, null, null, orderBy
         )
 
-        var vidsCount = 0
         if (rs != null) {
-            vidsCount = rs.getCount()
 
             val title: MutableList<String> = mutableListOf()
             var videoUrl: MutableList<String> = mutableListOf()
@@ -57,22 +62,19 @@ object VideoProvider : Activity() {
             var bgImageUrl: MutableList<String> = mutableListOf()
             var cardImageUrl: MutableList<String> = mutableListOf()
             var count = 0
+            var albumArt: MutableList<Bitmap> = mutableListOf()
+
             while (rs.moveToNext()) {
                 count++
-//                Log.d("VIDEO", rs.getString(2))
+
+                Log.d("VIDEO", rs.getString(7))
                 title.add(rs.getString(2))
                 videoUrl.add(rs.getString(0))
                 studio.add(rs.getString(2))
                 bgImageUrl.add("https://is2-ssl.mzstatic.com/image/thumb/Video128/v4/50/d3/03/50d3030b-be99-78a9-2250-9c4b62ea12f9/pr_source.lsr/600x0w.png")
-                cardImageUrl.add("https://is2-ssl.mzstatic.com/image/thumb/Video128/v4/50/d3/03/50d3030b-be99-78a9-2250-9c4b62ea12f9/pr_source.lsr/600x0w.png")
-            }
-            Log.d("VIDEO", "EWOK")
-            Log.d("VIDEO", title.toString())
-            Log.d("VIDEO", videoUrl.size.toString())
-            Log.d("VIDEO", bgImageUrl.size.toString())
-            Log.d("VIDEO", cardImageUrl.size.toString())
-            Log.d("VIDEO", "EWOK")
 
+                cardImageUrl.add(rs.getString(7))
+            }
             rs.close()
 
             val description = "Fusce id nisi turpis. Praesent viverra bibendum semper. " +
@@ -81,13 +83,6 @@ object VideoProvider : Activity() {
                     "amet mi accumsan mollis sed et magna. Vivamus sed aliquam risus. Nulla eget dolor in elit " +
                     "facilisis mattis. Ut aliquet luctus lacus. Phasellus nec commodo erat. Praesent tempus id " +
                     "lectus ac scelerisque. Maecenas pretium cursus lectus id volutpat."
-//            val studio = arrayOf(
-//                "Studio Zero",
-//                "Studio One",
-//                "Studio Two",
-//                "Studio Three",
-//                "Studio Thre2e",
-//                "Studio Four")
 
             list = title.indices.map {
                 buildMovieInfo(
