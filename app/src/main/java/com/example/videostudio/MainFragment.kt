@@ -66,15 +66,19 @@ class MainFragment : VerticalGridFragment() {
     }
 
     private fun setupFragment() {
-        val list = MovieList.list
+//        val list = MovieList.list
+
+        val list: List<Movie>? = VideoProvider.buildMedia(activity)
         val gridPresenter = VerticalGridPresenter()
 
         gridPresenter.setNumberOfColumns(NUM_COLUMNS)
         setGridPresenter(gridPresenter)
         mAdapter = ArrayObjectAdapter(CardPresenter())
 
-        for (movie in list) {
-            mAdapter!!.add(movie)
+        if (list != null) {
+            for (movie in list) {
+                mAdapter!!.add(movie)
+            }
         }
 
         adapter = mAdapter

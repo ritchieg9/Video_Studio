@@ -38,38 +38,37 @@ class MainActivity : Activity() {
         }
         else {
            setupMovies()
-            
         }
     }
 
     fun setupMovies() {
-
-        list = MovieList.setupMovies()
-
-        val proj = arrayOf(
-            MediaStore.Video.Media.DATA,
-            MediaStore.Video.Media._ID, MediaStore.Video.Media.TITLE,
-            MediaStore.Video.Media.DISPLAY_NAME,
-            MediaStore.Video.Media.MIME_TYPE,
-            MediaStore.Video.Media.DURATION,
-            MediaStore.Video.Media.SIZE
-        )
-
-        val orderBy = MediaStore.Video.Media.TITLE
-        val rs = managedQuery(
-            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-            proj, null, null, orderBy
-        )
-
-        var vidsCount = 0
-        if (rs != null) {
-            vidsCount = rs.getCount()
-            while (rs.moveToNext()) {
-                Log.d("VIDEO", rs.getString(0))
-            }
-            rs.close()
-        }
-        Log.d("VIDEO", "Total count of videos: $vidsCount")
+//
+//        list = MovieList.setupMovies()
+//
+//        val proj = arrayOf(
+//            MediaStore.Video.Media.DATA,
+//            MediaStore.Video.Media._ID, MediaStore.Video.Media.TITLE,
+//            MediaStore.Video.Media.DISPLAY_NAME,
+//            MediaStore.Video.Media.MIME_TYPE,
+//            MediaStore.Video.Media.DURATION,
+//            MediaStore.Video.Media.SIZE
+//        )
+//
+//        val orderBy = MediaStore.Video.Media.TITLE
+//        val rs = managedQuery(
+//            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+//            proj, null, null, orderBy
+//        )
+//
+//        var vidsCount = 0
+//        if (rs != null) {
+//            vidsCount = rs.getCount()
+//            while (rs.moveToNext()) {
+//                Log.d("VIDEO", rs.getString(0))
+//            }
+//            rs.close()
+//        }
+        Log.d("VIDEO", "CHVRCHES")
 
     }
 

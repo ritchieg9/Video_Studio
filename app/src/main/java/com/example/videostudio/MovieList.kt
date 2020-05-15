@@ -80,7 +80,7 @@ object MovieList {
         return list
     }
 
-    private fun buildMovieInfo(
+    fun buildMovieInfo(
         title: String,
         description: String,
         studio: String,

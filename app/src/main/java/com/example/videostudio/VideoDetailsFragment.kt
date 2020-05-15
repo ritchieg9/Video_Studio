@@ -71,7 +71,7 @@ class VideoDetailsFragment : DetailsFragment() {
             mAdapter = ArrayObjectAdapter(mPresenterSelector)
             setupDetailsOverviewRow()
             setupDetailsOverviewRowPresenter()
-            setupRelatedMovieListRow()
+//            setupRelatedMovieListRow()
             adapter = mAdapter
             initializeBackground(mSelectedMovie)
             onItemViewClickedListener = ItemViewClickedListener()
