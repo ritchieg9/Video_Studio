@@ -30,6 +30,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.BackgroundManager
 import androidx.leanback.app.VerticalGridFragment
+import androidx.leanback.app.VerticalGridSupportFragment
 import androidx.leanback.widget.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable

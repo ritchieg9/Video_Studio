@@ -17,6 +17,7 @@ package com.example.videostudio
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import androidx.leanback.app.DetailsFragment
 import androidx.leanback.app.DetailsFragmentBackgroundController
@@ -39,6 +40,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
@@ -163,6 +165,7 @@ class VideoDetailsFragment : DetailsFragment() {
         mPresenterSelector.addClassPresenter(DetailsOverviewRow::class.java, detailsPresenter)
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun setupRelatedMovieListRow() {
         val subcategories = arrayOf(getString(R.string.related_movies))
         val list = VideoProvider.setupMovies(activity)
