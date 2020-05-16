@@ -1,6 +1,7 @@
 package com.example.videostudio
 
 import android.app.Activity
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.os.Build
 import android.provider.MediaStore
@@ -23,35 +24,31 @@ object VideoProvider : Activity() {
             MediaStore.Video.Media.DISPLAY_NAME,
             MediaStore.Video.Media.MIME_TYPE,
             MediaStore.Video.Media.DURATION,
-            MediaStore.Video.Media.SIZE
+            MediaStore.Video.Media.SIZE,
+            MediaStore.Video.Media.ARTIST
         )
 
         val orderBy = MediaStore.Video.Media.TITLE
-        val rs = activity.managedQuery(
-            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-            proj, null, null, orderBy
-        )
+        val rs: Cursor? = activity.applicationContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, proj, null, null, orderBy)
 
         if (rs != null) {
 
             val title: MutableList<String> = mutableListOf()
             var videoUrl: MutableList<String> = mutableListOf()
-            var studio: MutableList<String> = mutableListOf()
+            var movieDirector: MutableList<String> = mutableListOf()
             var bgImageUrl: MutableList<String> = mutableListOf()
             var cardImageUrl: MutableList<String> = mutableListOf()
+
             var count = 0
-            var albumArt: MutableList<Bitmap> = mutableListOf()
-
             while (rs.moveToNext()) {
-                count++
-
-                Log.d("Thumb", rs.getString(0))
-                title.add(rs.getString(2))
-                videoUrl.add(rs.getString(0))
-                studio.add(rs.getString(2))
-                bgImageUrl.add(rs.getString(0))
-
-                cardImageUrl.add(rs.getString(0))
+                if(rs.getString(4) == "video/mp4"){
+                    Log.d("VIDEO", rs.getString(2))
+                    title.add(rs.getString(2))
+                    videoUrl.add(rs.getString(0))
+                    movieDirector.add(rs.getString(7))
+                    bgImageUrl.add(rs.getString(0))
+                    cardImageUrl.add((rs.getString(0)))
+                }
             }
             rs.close()
 
@@ -66,7 +63,7 @@ object VideoProvider : Activity() {
                 buildMovieInfo(
                     title[it],
                     description,
-                    studio[it],
+                    movieDirector[it],
                     videoUrl[it],
                     cardImageUrl[it],
                     bgImageUrl[it]
